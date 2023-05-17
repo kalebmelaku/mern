@@ -4,7 +4,7 @@ import axios from 'axios';
 import './App.css'
 
 function App() {
- 
+  const [inputValue, setInputValue] = useState('');
   const [goals, setGoals] = useState([]);
   useEffect(() => {
     // axios.get('http://localhost:5000/api/goals')
@@ -21,6 +21,17 @@ function App() {
       })
       .catch(err => {console.log(err);})
   }, []);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios.post('http://localhost:5000/api/goals', { text: inputValue })
+      .then(res => {
+        setGoals([...goals, res.data.goal]);
+        setInputValue('');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
   return (
     <>
        <div>
@@ -30,6 +41,10 @@ function App() {
         </div>
       ))}
     </div>
+    <form onSubmit={handleSubmit}>
+    <input type="text" name="" id="" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+      <input type="submit" value="Add" />
+    </form>
     </>
   )
 }
