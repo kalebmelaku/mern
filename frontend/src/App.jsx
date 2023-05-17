@@ -7,16 +7,8 @@ function App() {
   const [inputValue, setInputValue] = useState('');
   const [goals, setGoals] = useState([]);
   useEffect(() => {
-    // axios.get('http://localhost:5000/api/goals')
-    //   .then(res => {
-    //     setGoals(res.data.goals);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
     axios.get('http://localhost:5000/api/goals')
       .then(res => {
-        // console.log(res.data.goals);
         setGoals(res.data.goals);
       })
       .catch(err => {console.log(err);})
